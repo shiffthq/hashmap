@@ -82,3 +82,5 @@ Makefile
 tests/
 !tests/*.c
 !tests/*.h
+
+hashtable_test
