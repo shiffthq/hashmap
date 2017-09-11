@@ -3,6 +3,52 @@
 #include "hashtable.h"
 #include "murmur2.c"
 
+// https://gcc.gnu.org/onlinedocs/gcc-4.7.1/libstdc%2B%2B/api/a01194_source.html
+static size_t prime_numbers[] = {
+    5,
+    11,
+    23,
+    47,
+    97,
+    199,
+    409,
+    823,
+    1741,
+    3469,
+    6949,
+    14033,
+    28411,
+    57557,
+    116731,
+    236897,
+    480881,
+    976369,
+    1982627,
+    4026031,
+    8175383,
+    16601593,
+    33712729,
+    68460391,
+    139022417,
+    282312799,
+    573292817,
+    1164186217,
+    2364114217,
+    4294967291
+};
+
+static size_t get_next_prime(size_t size) {
+    int i;
+
+    for (i = 0; i < sizeof(prime_numbers) / sizeof(prime_numbers[0]); i++) {
+        if (prime_numbers[i] >= size) {
+            return prime_numbers[i];
+        }
+    }
+
+    return prime_numbers[i - 1];
+}
+
 static size_t hashtable_hash(hashtable_ctx *ctx, const char *key) {
     return MurmurHash2(key, strlen(key)) % ctx->size;
 }
@@ -25,6 +71,7 @@ hashtable_ctx *hashtable_new(size_t size) {
         return NULL;
     }
 
+    size = get_next_prime(size);
     ctx->size = size;
     ctx->used = 0;
 
