@@ -10,8 +10,8 @@ static char *rand_string() {
 
     size_t size = rand() % 3;
     str = malloc(size + 1);
-
-    for (size_t n = 0; n < size; n++) {
+    size_t n;
+    for (n = 0; n < size; n++) {
         int key = rand() % (int) (sizeof(charset) - 1);
         str[n] = charset[key];
     }
@@ -21,6 +21,7 @@ static char *rand_string() {
 }
 
 int main() {
+    size_t i;
     hashtable_ctx *ht = hashtable_new(7);
 
     srand(time(NULL));
@@ -44,28 +45,28 @@ int main() {
     printf("hashtable_get should be NULL: %s\n", NULL == result ? "pass" : "fail");
 
     //  10 thousand test case
-    for (int i = 0; i < 10000; i++) {
+    for (i = 0; i < 10000; i++) {
         char *randomkey = rand_string();
         hashtable_set(ht, randomkey, NULL);
         free(randomkey);
     }
-    printf("hashtable_ctx used %d\n", ht->used);
+    printf("hashtable_ctx used %zu\n", ht->used);
 
     // it
-    for (int i = 0; i < ht->size; i++) {
+    for (i = 0; i < ht->size; i++) {
         hashtable_entry *entry = ht->table[i];
         while (entry) {
             entry = entry->next;
         }
     }
 
-    for (int i = 0; i < 100000; i++) {
+    for (i = 0; i < 100000; i++) {
         char *randomkey = rand_string();
         hashtable_delete(ht, randomkey);
         free(randomkey);
     }
 
-    printf("hashtable_ctx used %d\n", ht->used);
+    printf("hashtable_ctx used %zu\n", ht->used);
 
     hashtable_destroy(ht);
 
