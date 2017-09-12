@@ -24,15 +24,16 @@ void hashtable_destroy(hashtable_ctx *ctx);
 // return true if success, otherwise return false
 bool hashtable_set(hashtable_ctx *ctx, const char *key, void *value);
 
-// return true if has, otherwise return false
-bool hashtable_has(hashtable_ctx *ctx, const char *key);
-
-// return the value if found, otherwise return NULL
+// return the value if success, otherwise return NULL
 void *hashtable_get(hashtable_ctx *ctx, const char *key);
 
-// return true if deleted, otherwise return false
+// return true if success, otherwise return false
 bool hashtable_delete(hashtable_ctx *ctx, const char *key);
 
-// void hashtable_clear(hashtable_ctx *ctx);
+// return true if success, otherwise return false
+bool hashtable_resize(hashtable_ctx *ctx);
+
+// return true if success, otherwise return false
+bool hashtable_expand(hashtable_ctx *ctx, size_t size);
 
 #endif
