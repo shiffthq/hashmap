@@ -79,9 +79,7 @@ Makefile
 /libtool
 /config.*
 
-tests/
+tests/*
+!tests/Makefile.am
 !tests/*.c
 !tests/*.h
-
-hashtable_test
-hashtable_test.trs
