@@ -40,18 +40,6 @@ const static size_t prime_numbers[] = {
 };
 const static int prime_number_count = sizeof(prime_numbers) / sizeof(prime_numbers[0]);
 
-static size_t get_prev_prime(size_t size) {
-    int i;
-
-    for (i = 1; i < prime_number_count; i++) {
-        if (prime_numbers[i] >= size) {
-            return prime_numbers[i - 1];
-        }
-    }
-
-    return prime_numbers[0];
-}
-
 static size_t get_next_prime(size_t size) {
     int i;
 
